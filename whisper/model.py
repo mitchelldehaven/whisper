@@ -122,7 +122,7 @@ class ResidualAttentionBlock(nn.Module):
         kv_cache: Optional[dict] = None,
     ):
         x = x + self.attn(self.attn_ln(x), mask=mask, kv_cache=kv_cache)
-        if self.cross_attn:
+        if self.cross_attn and xa is not None:
             x = x + self.cross_attn(self.cross_attn_ln(x), xa, kv_cache=kv_cache)
         x = x + self.mlp(self.mlp_ln(x))
         return x
